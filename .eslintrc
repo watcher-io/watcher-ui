@@ -1,0 +1,25 @@
+{
+  "extends": ["plugin:@next/next/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["import"],
+  "rules": {
+    "no-use-before-define": "off",
+    "import/no-unresolved": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "external",
+          ["sibling", "parent", "internal"],
+          "builtin",
+          "unknown"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
+}
