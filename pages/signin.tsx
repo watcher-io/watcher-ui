@@ -1,9 +1,14 @@
 import { useForm } from "react-hook-form"
+import axios from "axios"
+import { routes } from "utils"
 
 function Signin() {
   const { register, handleSubmit } = useForm()
 
-  const onSubmit = (data) => console.log({ data })
+  const onSubmit = async (data) => {
+    const response = await axios.post(routes.SIGNIN, data)
+    console.log({ response })
+  }
 
   return (
     <div className="min-h-screen w-full bg-skin-fill grid place-items-center">
