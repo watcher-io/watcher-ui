@@ -1,14 +1,42 @@
 import { useForm } from "react-hook-form"
 import axios from "axios"
-import { routes } from "utils"
+import { routes } from "~/utils"
+import { useMutation } from "react-query"
+import { LoginRequest, LoginResponse } from "~/types/auth"
+import { useAuthContext } from "~/context/auth-context"
+import { useRouter } from "next/router"
+import { useIsomorphicLayoutEffect } from "~/hooks"
+
+type RequestData = Pick<LoginRequest, "password">
+
+async function login({ password }: RequestData) {
+  return await axios.post<LoginResponse>(routes.SIGNIN, {
+    user_name: "admin",
+    password,
+  })
+}
 
 function Signin() {
+  const router = useRouter()
   const { register, handleSubmit } = useForm()
+  const { user, setUser } = useAuthContext()
 
-  const onSubmit = async (data) => {
-    const response = await axios.post(routes.SIGNIN, data)
-    console.log({ response })
+  const loginMutation = useMutation(login)
+
+  const onSubmit = async (requestData: RequestData) => {
+    loginMutation.mutate(requestData, {
+      onSuccess: ({ data: { data } }) => {
+        setUser(data)
+      },
+      // TODO: Handle onError
+    })
   }
+
+  useIsomorphicLayoutEffect(() => {
+    if (user) {
+      router.push("/")
+    }
+  }, [user])
 
   return (
     <div className="min-h-screen w-full bg-skin-fill grid place-items-center">
