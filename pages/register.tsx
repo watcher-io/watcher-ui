@@ -1,9 +1,53 @@
 import { useForm } from "react-hook-form"
+import type {
+  CreateUserRequest,
+  CreateUserResponse,
+  CreateUserRequestError,
+} from "~/types/auth"
+import axios from "axios"
+import type { AxiosResponse } from "axios"
+import { routes } from "~/utils"
+import { useMutation } from "react-query"
+import { useRouter } from "next/router"
+
+type RequestData = {
+  firstName: string
+  lastName: string
+  password: string
+}
+
+async function registerUser(payload: CreateUserRequest) {
+  return await axios.post<CreateUserRequest>(routes.REGISTER_USER, payload)
+}
 
 function Signin() {
   const { register, handleSubmit } = useForm()
+  const loginMutation = useMutation(registerUser)
+  const router = useRouter()
 
-  const onSubmit = (data) => console.log({ data })
+  const onSubmit = async (requestData: RequestData) => {
+    loginMutation.mutate(
+      {
+        first_name: requestData.firstName,
+        last_name: requestData.lastName,
+        password: requestData.password,
+      },
+      {
+        onSuccess: () => {
+          // redirect to signin page if user successfully created
+          router.push("/signin")
+        },
+        onError: ({
+          response,
+        }: {
+          response: { data: CreateUserRequestError }
+        }) => {
+          // TODO: Show notification
+          console.log({ data: response.data })
+        },
+      }
+    )
+  }
 
   return (
     <div className="min-h-screen w-full bg-skin-fill grid place-items-center">
@@ -22,6 +66,30 @@ function Signin() {
                 disabled
                 aria-disabled="true"
                 className="w-full px-4 py-1 rounded-md bg-skin-fill text-skin-muted mt-2 border"
+              />
+            </div>
+            <div className="mt-6">
+              <label className="block text-skin-base" htmlFor="firstName">
+                First Name
+              </label>
+              <input
+                name="firstName"
+                id="firstName"
+                className="w-full px-4 py-1 rounded-md bg-skin-fill text-skin-muted mt-2 border"
+                {...register("firstName", { required: true })}
+                required
+              />
+            </div>
+            <div className="mt-6">
+              <label className="block text-skin-base" htmlFor="lastName">
+                Last Name
+              </label>
+              <input
+                name="lastName"
+                id="lastName"
+                className="w-full px-4 py-1 rounded-md bg-skin-fill text-skin-muted mt-2 border"
+                {...register("lastName", { required: true })}
+                required
               />
             </div>
             <div className="mt-6">
