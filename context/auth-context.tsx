@@ -2,6 +2,7 @@ import * as React from "react"
 import { createNamedContext } from "~/utils"
 import { User } from "~/types/auth"
 import { useLocalStorage } from "~/hooks"
+import { useRouter } from "next/router"
 
 interface AuthContextProps {
   user: User | null
@@ -29,4 +30,14 @@ function useAuthContext() {
   return context
 }
 
-export { AuthContextProvider, useAuthContext }
+function useAuthCheck() {
+  const router = useRouter()
+  const { user } = useAuthContext()
+  React.useEffect(() => {
+    if (!user) {
+      router.replace("/signin")
+    }
+  }, [user])
+}
+
+export { AuthContextProvider, useAuthContext, useAuthCheck }

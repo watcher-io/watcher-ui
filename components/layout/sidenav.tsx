@@ -2,7 +2,7 @@ import * as React from "react"
 
 function SideNav({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative sidebar flex flex-row">
+    <div className="relative width-full flex flex-row">
       <div className="bg-skin-main text-skin-base">
         <nav>
           <a href="/cluster-profiles/overview" className="block py-2.5 px-4">

@@ -3,8 +3,10 @@ import CreateProfileDialog from "./components/create-profile-dialog"
 import Profile from "./components/profile"
 import Layout from "~/components/layout"
 import { useRouter } from "next/router"
+import { useAuthCheck } from "~/context/auth-context"
 
 function ClusterProfiles() {
+  useAuthCheck()
   const router = useRouter()
   const profileCardProps = {
     name: "Custer Profile",
@@ -19,7 +21,7 @@ function ClusterProfiles() {
 
   return (
     <Layout>
-      <div className="min-h-screen w-full bg-skin-fill space-y-4 p-2">
+      <div className="w-full bg-skin-fill space-y-4">
         <div className="flex space-x-4 justify-center md:justify-start">
           <button
             className="bg-skin-button-accent p-1.5 text-sm w-32 font-normal tracking-wider text-skin-base rounded hover:opacity-80"

@@ -1,5 +1,7 @@
 import * as React from "react"
+import { Menu, Transition } from "@headlessui/react"
 import SideNav from "./sidenav"
+import ActionMenu from "./action-menu"
 
 interface LayoutProps {
   children: React.ReactNode
@@ -8,7 +10,7 @@ interface LayoutProps {
 
 function Layout({ children, sidenav }: LayoutProps) {
   return (
-    <div className="flex flex-col min-h-screen bg-skin-fill">
+    <div className="flex flex-col w-full min-h-screen bg-skin-fill fixed">
       <nav className="bg-skin-main">
         <div className="min-w-screen mx-auto px-2">
           <div className="flex justify-between">
@@ -35,6 +37,9 @@ function Layout({ children, sidenav }: LayoutProps) {
                   <span className="font-bold">Watcher</span>
                 </a>
               </div>
+            </div>
+            <div className="flex items-center space-x-1 text-skin-base">
+              <ActionMenu />
             </div>
           </div>
         </div>
