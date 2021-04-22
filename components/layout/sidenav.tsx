@@ -5,7 +5,7 @@ function SideNav({ children }: { children: React.ReactNode }) {
     <div className="relative sidebar flex flex-row">
       <div className="bg-skin-main text-skin-base">
         <nav>
-          <a href="#" className="block py-2.5 px-4">
+          <a href="/cluster-profiles/overview" className="block py-2.5 px-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -21,7 +21,7 @@ function SideNav({ children }: { children: React.ReactNode }) {
               />
             </svg>
           </a>
-          <a href="#" className="block py-2.5 px-4">
+          <a href="/cluster-profiles/kv-store" className="block py-2.5 px-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"

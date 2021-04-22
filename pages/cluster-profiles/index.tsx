@@ -2,12 +2,17 @@ import * as React from "react"
 import CreateProfileDialog from "./components/create-profile-dialog"
 import Profile from "./components/profile"
 import Layout from "~/components/layout"
+import { useRouter } from "next/router"
 
 function ClusterProfiles() {
+  const router = useRouter()
   const profileCardProps = {
     name: "Custer Profile",
     endpoints: ["1092.168.1.1", "192.168.1.2"],
     ssl: false,
+    onClick: () => {
+      router.push("/cluster-profiles/overview")
+    },
   }
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)

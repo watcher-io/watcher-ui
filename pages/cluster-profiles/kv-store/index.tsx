@@ -2,7 +2,7 @@ import Layout from "~/components/layout"
 
 function KVStore() {
   return (
-    <Layout>
+    <Layout sidenav>
       <div>KV Store</div>
     </Layout>
   )

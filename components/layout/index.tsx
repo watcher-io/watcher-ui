@@ -15,7 +15,7 @@ function Layout({ children, sidenav }: LayoutProps) {
             <div className="flex space-x-4">
               <div>
                 <a
-                  href="#"
+                  href="/cluster-profiles"
                   className="flex items-center py-2 px-2 space-x-2 text-skin-base hover:text-opacity-80"
                 >
                   <svg
