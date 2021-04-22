@@ -24,6 +24,15 @@ module.exports = {
           "button-accent": withOpacity("--color-button-accent"),
         },
       },
+      borderColor: {
+        skin: {
+          fill: withOpacity("--color-fill"),
+          main: withOpacity("--color-bg-main"),
+          base: withOpacity("--color-text-base"),
+          muted: withOpacity("--color-text-muted"),
+          "button-accent": withOpacity("--color-button-accent"),
+        },
+      },
     },
   },
   variants: {
