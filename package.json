@@ -11,7 +11,10 @@
     "gen-env": "gen-env-types .env.local -o env.d.ts -e ."
   },
   "dependencies": {
+    "@headlessui/react": "^1.0.0",
+    "@svgr/webpack": "^5.5.0",
     "axios": "^0.21.1",
+    "clsx": "^1.1.1",
     "msw": "^0.28.1",
     "next": "latest",
     "react": "^17.0.1",
