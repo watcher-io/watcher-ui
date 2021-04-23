@@ -1,6 +1,6 @@
 import * as React from "react"
-import CreateProfileDialog from "./components/create-profile-dialog"
-import Profile from "./components/profile"
+import CreateProfileDialog from "~/components/cluster-profiles/create-profile-dialog"
+import Profile from "~/components/cluster-profiles/profile"
 import Layout from "~/components/layout"
 import { useRouter } from "next/router"
 import { useAuthCheck } from "~/context/auth-context"
