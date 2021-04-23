@@ -187,14 +187,14 @@ export default function CreateProfileDialog({
                       </div>
                     </div>
                     <div className="flex justify-start w-full px-3 py-1">
-                      <button className="bg-skin-button-accent p-1.5 text-xs w-16 font-normal tracking-wider text-skin-base rounded hover:opacity-80">
+                      <button className="bg-skin-button-accent p-1.5 text-xs w-16 font-normal tracking-wider text-skin-base rounded opacity-80 hover:opacity-100">
                         upload
                       </button>
                     </div>
                   </Transition>
                   <div className="flex justify-end w-full px-3 py-1">
                     <button
-                      className="bg-skin-button-accent p-1.5 text-sm w-16 font-normal tracking-wider text-skin-base rounded hover:opacity-80"
+                      className="bg-skin-button-accent p-1.5 text-sm w-16 font-normal tracking-wider text-skin-base rounded opacity-80 hover:opacity-100"
                       onClick={onClose}
                     >
                       save

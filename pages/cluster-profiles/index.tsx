@@ -24,7 +24,7 @@ function ClusterProfiles() {
       <div className="w-full bg-skin-fill space-y-4">
         <div className="flex space-x-4 justify-center md:justify-start">
           <button
-            className="bg-skin-button-accent p-1.5 text-sm w-32 font-normal tracking-wider text-skin-base rounded hover:opacity-80"
+            className="bg-skin-button-accent p-1.5 text-sm w-32 font-normal tracking-wider text-skin-base rounded opacity-80 hover:opacity-100"
             onClick={() => setIsDialogOpen(true)}
           >
             Create Profile
