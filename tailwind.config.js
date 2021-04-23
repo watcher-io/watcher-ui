@@ -33,6 +33,10 @@ module.exports = {
           "button-accent": withOpacity("--color-button-accent"),
         },
       },
+      flex: {
+        2: "2 2 0%",
+        3: "3 3 0%",
+      },
     },
   },
   variants: {
