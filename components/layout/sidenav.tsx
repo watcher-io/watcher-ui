@@ -4,17 +4,18 @@ import { useRouter } from "next/router"
 function SideNav({ children }: { children: React.ReactNode }) {
   const router = useRouter()
 
-  const currentPath = router.pathname
+  const { profileId } = router.query
+  const currentPath = router.asPath
 
   return (
     <div className="relative width-full flex flex-row">
       <div className="bg-skin-main text-skin-base">
         <nav>
           <a
-            href="/cluster-profiles/overview"
+            href={`/cluster-profiles/overview/${profileId}`}
             className={`${
-              currentPath === "/cluster-profiles/overview"
-                ? "text-skin-button-accent"
+              currentPath === `/cluster-profiles/overview/${profileId}`
+                ? "text-skin-button-accent pointer-events-none cursor-default"
                 : "text-skin-base"
             } opacity-80 hover:opacity-100 block py-2.5 px-4`}
           >
@@ -34,10 +35,10 @@ function SideNav({ children }: { children: React.ReactNode }) {
             </svg>
           </a>
           <a
-            href="/cluster-profiles/kv-store"
+            href={`/cluster-profiles/kv-store/${profileId}`}
             className={`${
-              currentPath === "/cluster-profiles/kv-store"
-                ? "text-skin-button-accent"
+              currentPath === `/cluster-profiles/kv-store/${profileId}`
+                ? "text-skin-button-accent pointer-events-none cursor-default"
                 : "text-skin-base"
             } opacity-80 hover:opacity-100 block py-2.5 px-4`}
           >

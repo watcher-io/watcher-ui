@@ -1,5 +1,6 @@
 import Layout from "~/components/layout"
 import { useAuthCheck } from "~/context/auth-context"
+import Graph from "~/components/cluster-profiles/graph"
 
 function Overview() {
   useAuthCheck()
@@ -21,8 +22,8 @@ function Overview() {
               </div>
             </div>
             <div className="flex-3 px-6 py-2">
-              <div className="bg-skin-main w-full h-full rounded-lg">
-                node graph
+              <div className="bg-skin-main w-full h-full rounded-lg relative">
+                <Graph />
               </div>
             </div>
           </div>

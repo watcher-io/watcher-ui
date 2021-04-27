@@ -6,11 +6,13 @@ import SearchIcon from "~/assets/icons/search.svg"
 interface CreateProfileDialogProps {
   open: boolean
   onClose: () => void
+  mode?: "create" | "view"
 }
 
 export default function CreateProfileDialog({
   open,
   onClose,
+  mode = "create",
 }: CreateProfileDialogProps) {
   const [enabled, setEnabled] = useState(true)
   const cancelButtonRef = useRef()

@@ -1,24 +1,36 @@
-import type { ReactElement, MouseEventHandler } from "react"
+import type { ReactElement, MouseEvent } from "react"
+import type { TClusterProfile } from "~/types/cluster-profile"
+import { useRouter } from "next/router"
+import { EyeIcon } from "@heroicons/react/outline"
 
-interface CardItemProps {
-  name: string
-  endpoints: string[]
-  ssl: boolean
-  onClick: MouseEventHandler<HTMLDivElement>
+type CardItemProps = TClusterProfile & {
+  onViewClick: (event: MouseEvent<SVGSVGElement>) => void
 }
 
 function CardItem(props: CardItemProps) {
+  const router = useRouter()
+
+  const handleCardClick = () => {
+    router.push(`/cluster-profiles/overview/${props.id}`)
+  }
+
   return (
-    <div className="md:w-1/2 xl:w-1/3 sm:w-full p-2" onClick={props.onClick}>
+    <div className="md:w-1/2 xl:w-1/3 sm:w-full p-2" onClick={handleCardClick}>
       <div className="bg-skin-main p-4 rounded-lg cursor-pointer">
         <h2 className="text-lg text-skin-base font-medium title-font mb-2">
-          {props.name}
+          <div className="flex justify-between">
+            {props.name}
+            <EyeIcon
+              className="h6 w-6 text-skin-base hover:text-skin-button-accent"
+              onClick={props.onViewClick}
+            />
+          </div>
         </h2>
         <p className="leading-relaxed text-skin-base text-base">
           {props.endpoints.join(", ")}
         </p>
         <p className="leading-relaxed text-skin-base text-base">
-          {JSON.stringify(props.ssl)}
+          TLS: {JSON.stringify(props.tls)}
         </p>
       </div>
     </div>

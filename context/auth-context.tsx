@@ -3,6 +3,7 @@ import { createNamedContext } from "~/utils"
 import { User } from "~/types/auth"
 import { useLocalStorage } from "~/hooks"
 import { useRouter } from "next/router"
+import axios from "axios"
 
 interface AuthContextProps {
   user: User | null
@@ -40,4 +41,20 @@ function useAuthCheck() {
   }, [user])
 }
 
-export { AuthContextProvider, useAuthContext, useAuthCheck }
+function useAuthClient() {
+  const { user } = useAuthContext()
+
+  const client = React.useMemo(() => {
+    const axiosInstance = axios.create({
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Auth ${user?.access_token}`,
+      },
+    })
+    return axiosInstance
+  }, [user])
+
+  return client
+}
+
+export { AuthContextProvider, useAuthContext, useAuthCheck, useAuthClient }

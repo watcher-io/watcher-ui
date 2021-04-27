@@ -5,8 +5,7 @@ import type {
   CreateUserRequestError,
 } from "~/types/auth"
 import axios from "axios"
-import type { AxiosResponse } from "axios"
-import { routes } from "~/utils"
+import { auth } from "~/utils/api-routes"
 import { useMutation } from "react-query"
 import { useRouter } from "next/router"
 
@@ -17,7 +16,7 @@ type RequestData = {
 }
 
 async function registerUser(payload: CreateUserRequest) {
-  return await axios.post<CreateUserRequest>(routes.REGISTER_USER, payload)
+  return await axios.post<CreateUserRequest>(auth.REGISTER_USER, payload)
 }
 
 function Signin() {

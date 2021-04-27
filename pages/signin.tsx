@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import axios from "axios"
-import { routes } from "~/utils"
+import { auth } from "~/utils/api-routes"
 import { useMutation } from "react-query"
 import { LoginRequest, LoginResponse } from "~/types/auth"
 import { useAuthContext } from "~/context/auth-context"
@@ -10,7 +10,7 @@ import { useIsomorphicLayoutEffect } from "~/hooks"
 type RequestData = Pick<LoginRequest, "password">
 
 async function login({ password }: RequestData) {
-  return await axios.post<LoginResponse>(routes.SIGNIN, {
+  return await axios.post<LoginResponse>(auth.SIGNIN, {
     user_name: "admin",
     password,
   })

@@ -1,3 +1,5 @@
+import type { Response } from "./common"
+
 export type User = {
   access_token: string
   user_name: string
@@ -10,10 +12,7 @@ export type LoginRequest = {
   password: string
 }
 
-export type LoginResponse = {
-  response_message: string
-  data: User
-}
+export type LoginResponse = Response<User>
 
 export type CreateUserRequest = {
   password: string
@@ -25,7 +24,6 @@ export type CreateUserRequestError = {
   response_message: string
 }
 
-export type CreateUserResponse = {
-  response_message: string
-  data: Omit<User, "access_token"> & { id: string }
-}
+export type CreateUserResponse = Response<
+  Omit<User, "access_token"> & { id: string }
+>

@@ -3,21 +3,35 @@ import CreateProfileDialog from "~/components/cluster-profiles/create-profile-di
 import Profile from "~/components/cluster-profiles/profile"
 import Layout from "~/components/layout"
 import { useRouter } from "next/router"
-import { useAuthCheck } from "~/context/auth-context"
+import { useAuthCheck, useAuthClient } from "~/context/auth-context"
+import { useQuery } from "react-query"
+import { clusterProfile } from "~/utils/api-routes"
+import { isBrowser } from "~/utils/misc"
+import type { FetchProfileResponse } from "~/types/cluster-profile"
 
 function ClusterProfiles() {
   useAuthCheck()
-  const router = useRouter()
-  const profileCardProps = {
-    name: "Custer Profile",
-    endpoints: ["1092.168.1.1", "192.168.1.2"],
-    ssl: false,
-    onClick: () => {
-      router.push("/cluster-profiles/overview")
-    },
-  }
+  const client = useAuthClient()
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+
+  const { data: profileList, isSuccess } = useQuery({
+    queryKey: "cluster-profile-list",
+    queryFn: async () => {
+      return await client
+        .get<FetchProfileResponse>(clusterProfile.FETCH)
+        .then((res) => res.data.data)
+    },
+    enabled: isBrowser,
+  })
+
+  const handleViewClick = (id: string) => (
+    event: React.MouseEvent<SVGElement>
+  ) => {
+    event.stopPropagation()
+    console.log(`Viewing ${id}`)
+    setIsDialogOpen(true)
+  }
 
   return (
     <Layout>
@@ -57,10 +71,15 @@ function ClusterProfiles() {
           </div>
         </div>
         <Profile.CardContainer>
-          <Profile.CardItem {...profileCardProps} />
-          <Profile.CardItem {...profileCardProps} />
-          <Profile.CardItem {...profileCardProps} />
-          <Profile.CardItem {...profileCardProps} />
+          {isSuccess
+            ? profileList.map((profile) => (
+                <Profile.CardItem
+                  key={profile.id}
+                  {...profile}
+                  onViewClick={handleViewClick(profile.id)}
+                />
+              ))
+            : null}
         </Profile.CardContainer>
         <CreateProfileDialog
           open={isDialogOpen}
