@@ -1,3 +1,4 @@
+import type { GraphConfiguration } from "react-d3-graph"
 import { Graph } from "react-d3-graph"
 
 const data = {
@@ -8,7 +9,7 @@ const data = {
   ],
 }
 
-const myConfig = {
+const myConfig: Partial<GraphConfiguration<any, any>> = {
   nodeHighlightBehavior: true,
   node: {
     color: "lightgreen",
@@ -18,6 +19,8 @@ const myConfig = {
   link: {
     highlightColor: "lightblue",
   },
+  height: 400,
+  width: 400,
 }
 
 function CustomGraph() {
@@ -30,13 +33,17 @@ function CustomGraph() {
   }
 
   return (
-    <Graph
-      id="custom-graph"
-      data={data}
-      config={myConfig}
-      onClickNode={onClickNode}
-      onClickLink={onClickLink}
-    />
+    <div className="relative w-full h-full">
+      <div className="absolute flex w-full h-full justify-center items-center">
+        <Graph
+          id="custom-graph"
+          data={data}
+          config={myConfig}
+          onClickNode={onClickNode}
+          onClickLink={onClickLink}
+        />
+      </div>
+    </div>
   )
 }
 

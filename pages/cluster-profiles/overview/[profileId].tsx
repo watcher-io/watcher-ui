@@ -22,7 +22,7 @@ function Overview() {
               </div>
             </div>
             <div className="flex-3 px-6 py-2">
-              <div className="bg-skin-main w-full h-full rounded-lg relative">
+              <div className="bg-skin-main w-full h-full rounded-lg">
                 <Graph />
               </div>
             </div>

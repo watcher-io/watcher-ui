@@ -12,6 +12,7 @@ function SideNav({ children }: { children: React.ReactNode }) {
       <div className="bg-skin-main text-skin-base">
         <nav>
           <a
+            key={`overview-${profileId}`}
             href={`/cluster-profiles/overview/${profileId}`}
             className={`${
               currentPath === `/cluster-profiles/overview/${profileId}`
@@ -35,6 +36,7 @@ function SideNav({ children }: { children: React.ReactNode }) {
             </svg>
           </a>
           <a
+            key={`kv-store-${profileId}`}
             href={`/cluster-profiles/kv-store/${profileId}`}
             className={`${
               currentPath === `/cluster-profiles/kv-store/${profileId}`
