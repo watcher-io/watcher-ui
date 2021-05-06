@@ -1,15 +1,15 @@
 import { rest } from "msw"
-import { routes } from "utils"
+import { auth } from "~/utils/api-routes"
 
 export const handlers = [
-  rest.post(routes.SIGNIN, (req, res, ctx) => {
+  rest.post(auth.SIGNIN, (req, res, ctx) => {
     return res(
       ctx.json({
         message: "success",
       })
     )
   }),
-  rest.post(routes.REGISTER_USER, (req, res, ctx) => {
+  rest.post(auth.REGISTER_USER, (req, res, ctx) => {
     return res(
       ctx.json({
         response_message: "user created successfully",
