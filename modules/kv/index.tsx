@@ -11,8 +11,10 @@ import DeleteScreen from "./components/delete"
 import GetPanel from "./components/get-panel"
 import PutPanel from "./components/put-panel"
 import DeletePanel from "./components/delete-panel"
+import CompactPanel from "./components/compact-panel"
+import CompactScreen from "./components/compact"
 
-const options = ["Get", "Put", "Delete"] as const
+const options = ["Get", "Put", "Delete", "Compact"] as const
 
 function KVStore() {
   useAuthCheck()
@@ -28,9 +30,12 @@ function KVStore() {
   } else if (selected === "Put") {
     CurrentScreen = PutScreen
     CurrentPanel = PutPanel
-  } else {
+  } else if (selected === "Delete") {
     CurrentScreen = DeleteScreen
     CurrentPanel = DeletePanel
+  } else if (selected === "Compact") {
+    CurrentScreen = CompactScreen
+    CurrentPanel = CompactPanel
   }
 
   return (
