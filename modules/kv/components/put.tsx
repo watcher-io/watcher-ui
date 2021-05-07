@@ -1,6 +1,64 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@reach/tabs"
 import * as React from "react"
 
+function PutHeaderPanel() {
+  return (
+    <div className="w-full text-skin-base">
+      <div className="w-full flex gap-2">
+        <div className="w-20">Cluster ID</div>
+        <div className="flex-1">: 3b1eda34-4492-48b9-abdf-4c7655809da4</div>
+      </div>
+      <div className="w-full flex gap-2">
+        <div className="w-20">Member ID</div>
+        <div className="flex-1">: 3b1eda34-4492-48b9-abdf-4c7655809da4</div>
+      </div>
+      <div className="w-full flex gap-2">
+        <div className="w-20">Raft Term</div>
+        <div className="flex-1">: 2</div>
+      </div>
+      <div className="w-full flex gap-2">
+        <div className="w-20">Revision</div>
+        <div className="flex-1">: 42</div>
+      </div>
+    </div>
+  )
+}
+
+function PutResultPanel() {
+  return (
+    <>
+      {" "}
+      <p className="text-base font-semibold">Previous Key Value</p>
+      <div className="w-full text-skin-base">
+        <div className="w-full flex gap-2">
+          <div className="w-28">Key</div>
+          <div className="flex-1">: foo</div>
+        </div>
+        <div className="w-full flex gap-2">
+          <div className="w-28">Value</div>
+          <div className="flex-1">: bar</div>
+        </div>
+        <div className="w-full flex gap-2">
+          <div className="w-28">Version</div>
+          <div className="flex-1">: 4</div>
+        </div>
+        <div className="w-full flex gap-2">
+          <div className="w-28">Create revision</div>
+          <div className="flex-1">: 20</div>
+        </div>
+        <div className="w-full flex gap-2">
+          <div className="w-28">Mod revision</div>
+          <div className="flex-1">: 21</div>
+        </div>
+        <div className="w-full flex gap-2">
+          <div className="w-28">Lease</div>
+          <div className="flex-1">: 3b1eda34-4492-48b9-abdf-4c7655809da4</div>
+        </div>
+      </div>
+    </>
+  )
+}
+
 function Put() {
   return (
     <div className="w-full bg-skin-main rounded-lg p-4 text-skin-base">
@@ -23,61 +81,12 @@ function Put() {
                 Result
               </Tab>
             </TabList>
-            <TabPanels>
+            <TabPanels className="pt-2">
               <TabPanel>
-                <div className="w-full text-skin-base">
-                  <div className="w-full flex gap-2">
-                    <div className="w-20">Cluster ID</div>
-                    <div className="flex-1">
-                      : 3b1eda34-4492-48b9-abdf-4c7655809da4
-                    </div>
-                  </div>
-                  <div className="w-full flex gap-2">
-                    <div className="w-20">Member ID</div>
-                    <div className="flex-1">
-                      : 3b1eda34-4492-48b9-abdf-4c7655809da4
-                    </div>
-                  </div>
-                  <div className="w-full flex gap-2">
-                    <div className="w-20">Raft Term</div>
-                    <div className="flex-1">: 2</div>
-                  </div>
-                  <div className="w-full flex gap-2">
-                    <div className="w-20">Revision</div>
-                    <div className="flex-1">: 42</div>
-                  </div>
-                </div>
+                <PutHeaderPanel />
               </TabPanel>
               <TabPanel>
-                <p className="text-base font-semibold">Previous Key Value</p>
-                <div className="w-full text-skin-base">
-                  <div className="w-full flex gap-2">
-                    <div className="w-28">Key</div>
-                    <div className="flex-1">: foo</div>
-                  </div>
-                  <div className="w-full flex gap-2">
-                    <div className="w-28">Value</div>
-                    <div className="flex-1">: bar</div>
-                  </div>
-                  <div className="w-full flex gap-2">
-                    <div className="w-28">Version</div>
-                    <div className="flex-1">: 4</div>
-                  </div>
-                  <div className="w-full flex gap-2">
-                    <div className="w-28">Create revision</div>
-                    <div className="flex-1">: 20</div>
-                  </div>
-                  <div className="w-full flex gap-2">
-                    <div className="w-28">Mod revision</div>
-                    <div className="flex-1">: 21</div>
-                  </div>
-                  <div className="w-full flex gap-2">
-                    <div className="w-28">Lease</div>
-                    <div className="flex-1">
-                      : 3b1eda34-4492-48b9-abdf-4c7655809da4
-                    </div>
-                  </div>
-                </div>
+                <PutResultPanel />
               </TabPanel>
             </TabPanels>
           </React.Fragment>

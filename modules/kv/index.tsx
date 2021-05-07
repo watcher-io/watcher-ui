@@ -61,18 +61,16 @@ function KVStore() {
                 >
                   <Menu.Items
                     static
-                    className="absolute left-0 w-28 mt-2 z-10 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    className="absolute left-0 w-28 mt-2 z-10 origin-top-right bg-skin-main border border-skin-fill divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
                     <div className="px-1 py-1 ">
                       {options.map((option) => (
                         <Menu.Item key={option} disabled={option === selected}>
-                          {({ active }) => (
+                          {({ active, disabled }) => (
                             <button
-                              className={`${
-                                active
-                                  ? "bg-violet-500 text-white"
-                                  : "text-gray-900"
-                              } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                              className={`${active ? "bg-skin-fill" : ""} ${
+                                disabled ? "bg-skin-fill opacity-60" : ""
+                              } text-skin-base group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                               onClick={() => setSelected(option)}
                             >
                               {option}
