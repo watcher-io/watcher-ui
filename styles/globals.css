@@ -10,6 +10,9 @@
     --color-bg-main: 32, 34, 37;
     --color-button-accent: 119, 119, 221;
   }
+  :root {
+    --reach-tabs: 1;
+  }
 }
 
 .width-full {
