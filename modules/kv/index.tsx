@@ -1,6 +1,5 @@
 import { Menu, Transition } from "@headlessui/react"
 import Layout from "~/components/layout"
-import { useAuthCheck } from "~/context/auth-context"
 import { Fragment } from "react"
 import { ChevronDownIcon } from "@heroicons/react/outline"
 import * as React from "react"
@@ -17,8 +16,6 @@ import CompactScreen from "./components/compact"
 const options = ["Get", "Put", "Delete", "Compact"] as const
 
 function KVStore() {
-  useAuthCheck()
-
   const [selected, setSelected] = React.useState<ElementType<typeof options>>(
     "Get"
   )

@@ -2,14 +2,13 @@ import * as React from "react"
 import CreateProfileDialog from "./components/create-profile-dialog"
 import Profile from "./components/profile"
 import Layout from "~/components/layout"
-import { useAuthCheck, useAuthClient } from "~/context/auth-context"
+import { useAuthClient } from "~/context/auth-context"
 import { useQuery } from "react-query"
 import { clusterProfile } from "~/utils/api-routes"
 import { isBrowser } from "~/utils/misc"
 import type { FetchProfileResponse } from "~/types/cluster-profile"
 
 function ClusterProfiles() {
-  useAuthCheck()
   const client = useAuthClient()
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)

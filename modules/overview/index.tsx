@@ -1,9 +1,7 @@
 import Layout from "~/components/layout"
-import { useAuthCheck } from "~/context/auth-context"
 import Graph from "./components/graph"
 
 function Overview() {
-  useAuthCheck()
   return (
     <Layout sidenav>
       <div className="flex gap-2 w-full h-full text-skin-base">
