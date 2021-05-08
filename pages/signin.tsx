@@ -6,6 +6,8 @@ import { LoginRequest, LoginResponse } from "~/types/auth"
 import { useAuthContext } from "~/context/auth-context"
 import { useRouter } from "next/router"
 import { useIsomorphicLayoutEffect } from "~/hooks"
+import { useEffect } from "react"
+import { useUserExistsQuery } from "~/hooks/useUserExistsQuery"
 
 type RequestData = Pick<LoginRequest, "password">
 
@@ -21,6 +23,8 @@ function Signin() {
   const { register, handleSubmit } = useForm()
   const { user, setUser } = useAuthContext()
 
+  const { data: userCheckResponse } = useUserExistsQuery()
+
   const loginMutation = useMutation(login)
 
   const onSubmit = async (requestData: RequestData) => {
@@ -34,9 +38,15 @@ function Signin() {
 
   useIsomorphicLayoutEffect(() => {
     if (user) {
-      router.push("/")
+      router.push("/cluster-profiles")
     }
   }, [user])
+
+  useEffect(() => {
+    if (userCheckResponse && !userCheckResponse.data) {
+      router.push("/register")
+    }
+  }, [userCheckResponse])
 
   return (
     <div className="min-h-screen w-full bg-skin-fill grid place-items-center">

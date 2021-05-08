@@ -36,6 +36,7 @@ function useAuthCheck() {
   const { user } = useAuthContext()
   React.useEffect(() => {
     if (!user) {
+      if (router.asPath === "/register") return
       router.replace("/signin")
     }
   }, [user])

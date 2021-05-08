@@ -1,10 +1,10 @@
-import "~/styles/globals.css"
-import * as React from "react"
-import { AuthContextProvider, useAuthCheck } from "~/context/auth-context"
-import { Hydrate } from "react-query/hydration"
-import { ReactQueryDevtools } from "react-query/devtools"
-import { QueryClient, QueryClientProvider } from "react-query"
 import Head from "next/head"
+import * as React from "react"
+import { QueryClient, QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
+import { Hydrate } from "react-query/hydration"
+import { AuthContextProvider, useAuthCheck } from "~/context/auth-context"
+import "~/styles/globals.css"
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
   require("mocks")

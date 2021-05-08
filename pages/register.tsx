@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form"
-import type {
-  CreateUserRequest,
-  CreateUserResponse,
-  CreateUserRequestError,
-} from "~/types/auth"
+import type { CreateUserRequest, CreateUserRequestError } from "~/types/auth"
 import axios from "axios"
 import { auth } from "~/utils/api-routes"
 import { useMutation } from "react-query"
 import { useRouter } from "next/router"
+import { useUserExistsQuery } from "~/hooks/useUserExistsQuery"
+import { useEffect } from "react"
 
 type RequestData = {
   firstName: string
@@ -23,6 +21,7 @@ function Signin() {
   const { register, handleSubmit } = useForm()
   const loginMutation = useMutation(registerUser)
   const router = useRouter()
+  const { data: userCheckResponse } = useUserExistsQuery()
 
   const onSubmit = async (requestData: RequestData) => {
     loginMutation.mutate(
@@ -47,6 +46,12 @@ function Signin() {
       }
     )
   }
+
+  useEffect(() => {
+    if (userCheckResponse && userCheckResponse.data) {
+      router.push("/signin")
+    }
+  }, [userCheckResponse])
 
   return (
     <div className="min-h-screen w-full bg-skin-fill grid place-items-center">

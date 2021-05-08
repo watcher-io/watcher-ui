@@ -4,6 +4,7 @@ const BASE_URL =
 const auth = {
   SIGNIN: `${BASE_URL}/api/v1/auth/login`,
   REGISTER_USER: `${BASE_URL}/api/v1/user/create`,
+  CHECK_USER_EXISTENCE: `${BASE_URL}/api/v1/user/exists`,
 }
 
 const clusterProfile = {
