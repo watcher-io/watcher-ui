@@ -21,6 +21,14 @@ const keyValue = {
   PUT: (id: string) => `${BASE_URL}/api/v1/kv/put/${id}`,
   GET: (id: string) => `${BASE_URL}/api/v1/kv/get/${id}`,
   DELETE: (id: string) => `${BASE_URL}/api/v1/kv/delete/${id}`,
+  COMPACT: (id: string) => `${BASE_URL}/api/v1/kv/compact/${id}`,
 }
 
-export { auth, clusterProfile, dashboard, keyValue }
+const maintenance = {
+  LIST_ALARM: (id: string) => `${BASE_URL}/api/maintenance/listAlarm/${id}`,
+  DEFRAGMENT: (id: string) => `${BASE_URL}/api/maintenance/defragment/${id}`,
+  SNAPSHOT: (id: string) => `${BASE_URL}/api/maintenance/snapshot/${id}`,
+  MOVE_LEADER: (id: string) => `${BASE_URL}/api/maintenance/moveLeader/${id}`,
+}
+
+export { auth, clusterProfile, dashboard, keyValue, maintenance }

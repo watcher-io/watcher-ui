@@ -1,7 +1,13 @@
 import Layout from "~/components/layout"
 import Graph from "./components/graph"
+import { useDashboardQuery } from "./query-utils"
+import { useRouter } from "next/router"
 
 function Overview() {
+  const router = useRouter()
+  const { profileId } = router.query
+  const { data } = useDashboardQuery(profileId as string)
+  console.log({ data: data.data })
   return (
     <Layout sidenav>
       <div className="flex gap-2 w-full h-full text-skin-base">
