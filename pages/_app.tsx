@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <title>watcher.io</title>
       </Head>
       <QueryClientProvider client={queryClientRef.current}>

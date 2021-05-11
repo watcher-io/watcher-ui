@@ -1,18 +1,35 @@
 import { Popover, Switch, Transition } from "@headlessui/react"
 import { ChevronDownIcon } from "@heroicons/react/outline"
 import * as React from "react"
+import { useFormik } from "formik"
+import { TGetRequest } from "~/types/kv"
+import { useKVContext } from "../context"
 
 function GetPanel() {
-  const [enabled, setEnabled] = React.useState(false)
+  const { setValuesForSelectedOptions } = useKVContext()
+  const formik = useFormik<TGetRequest>({
+    initialValues: {
+      key: "",
+      limit: 0,
+      range: "1",
+      revision: 1,
+      count_only: false,
+      from_key: false,
+      keys_only: false,
+      prefix: false,
+    },
+    onSubmit: (data) => setValuesForSelectedOptions(data),
+  })
 
   return (
-    <div className="flex-1 flex gap-2">
+    <form className="flex-1 flex gap-2" onSubmit={formik.handleSubmit}>
       <input
         key="key"
         className="appearance-none block w-64 bg-skin-fill focus:bg-skin-fill text-skin-muted rounded py-1 px-4"
-        name="key"
-        type="text"
         placeholder="foo"
+        name="key"
+        value={formik.values.key}
+        onChange={formik.handleChange}
       />
       <Popover className="relative">
         {({ open }) => (
@@ -51,22 +68,23 @@ function GetPanel() {
                           key="limit"
                           className="appearance-none block w-28 bg-skin-fill focus:bg-skin-fill text-skin-muted rounded py-1 px-4"
                           name="limit"
-                          type="text"
-                          placeholder="42"
+                          value={formik.values.limit}
+                          onChange={formik.handleChange}
                         />
                         <input
                           key="range"
                           className="appearance-none block w-28 bg-skin-fill focus:bg-skin-fill text-skin-muted rounded py-1 px-4"
                           name="range"
-                          type="text"
-                          placeholder="42"
+                          value={formik.values.range}
+                          onChange={formik.handleChange}
                         />
                         <input
                           key="revision"
                           className="appearance-none block w-28 bg-skin-fill focus:bg-skin-fill text-skin-muted rounded py-1 px-4"
+                          type="number"
                           name="revision"
-                          type="text"
-                          placeholder="v1"
+                          value={formik.values.revision}
+                          onChange={formik.handleChange}
                         />
                         <div className="flex gap-2">
                           <div className="flex flex-col">
@@ -76,15 +94,23 @@ function GetPanel() {
                                   Prefix
                                 </Switch.Label>
                                 <Switch
-                                  checked={enabled}
-                                  onChange={setEnabled}
+                                  name="prefix"
+                                  checked={formik.values.prefix}
+                                  onChange={() => {
+                                    formik.setFieldValue(
+                                      "prefix",
+                                      !formik.values.prefix
+                                    )
+                                  }}
                                   className={`${
-                                    enabled ? "bg-blue-600" : "bg-gray-200"
+                                    formik.values.prefix
+                                      ? "bg-blue-600"
+                                      : "bg-gray-200"
                                   } ml-auto relative inline-flex items-center h-4 rounded-full w-8 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                                 >
                                   <span
                                     className={`${
-                                      enabled
+                                      formik.values.prefix
                                         ? "translate-x-4"
                                         : "translate-x-1"
                                     } inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
@@ -98,15 +124,23 @@ function GetPanel() {
                                   Count
                                 </Switch.Label>
                                 <Switch
-                                  checked={enabled}
-                                  onChange={setEnabled}
+                                  name="count_only"
+                                  checked={formik.values.count_only}
+                                  onChange={() => {
+                                    formik.setFieldValue(
+                                      "count_only",
+                                      !formik.values.count_only
+                                    )
+                                  }}
                                   className={`${
-                                    enabled ? "bg-blue-600" : "bg-gray-200"
+                                    formik.values.count_only
+                                      ? "bg-blue-600"
+                                      : "bg-gray-200"
                                   } ml-auto relative inline-flex items-center h-4 rounded-full w-8 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                                 >
                                   <span
                                     className={`${
-                                      enabled
+                                      formik.values.count_only
                                         ? "translate-x-4"
                                         : "translate-x-1"
                                     } inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
@@ -122,15 +156,23 @@ function GetPanel() {
                                   From Key
                                 </Switch.Label>
                                 <Switch
-                                  checked={enabled}
-                                  onChange={setEnabled}
+                                  name="from_key"
+                                  checked={formik.values.from_key}
+                                  onChange={() => {
+                                    formik.setFieldValue(
+                                      "from_key",
+                                      !formik.values.from_key
+                                    )
+                                  }}
                                   className={`${
-                                    enabled ? "bg-blue-600" : "bg-gray-200"
+                                    formik.values.from_key
+                                      ? "bg-blue-600"
+                                      : "bg-gray-200"
                                   } ml-auto relative inline-flex items-center h-4 rounded-full w-8 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                                 >
                                   <span
                                     className={`${
-                                      enabled
+                                      formik.values.from_key
                                         ? "translate-x-4"
                                         : "translate-x-1"
                                     } inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
@@ -144,15 +186,23 @@ function GetPanel() {
                                   Keys Only
                                 </Switch.Label>
                                 <Switch
-                                  checked={enabled}
-                                  onChange={setEnabled}
+                                  name="keys_only"
+                                  checked={formik.values.keys_only}
+                                  onChange={() => {
+                                    formik.setFieldValue(
+                                      "keys_only",
+                                      !formik.values.keys_only
+                                    )
+                                  }}
                                   className={`${
-                                    enabled ? "bg-blue-600" : "bg-gray-200"
+                                    formik.values.keys_only
+                                      ? "bg-blue-600"
+                                      : "bg-gray-200"
                                   } ml-auto relative inline-flex items-center h-4 rounded-full w-8 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                                 >
                                   <span
                                     className={`${
-                                      enabled
+                                      formik.values.keys_only
                                         ? "translate-x-4"
                                         : "translate-x-1"
                                     } inline-block w-4 h-4 transform bg-white rounded-full transition-transform`}
@@ -171,7 +221,15 @@ function GetPanel() {
           </>
         )}
       </Popover>
-    </div>
+      <div className="ml-auto my-auto px-2">
+        <button
+          className="bg-skin-button-accent p-1.5 text-sm w-24 font-normal tracking-wider text-skin-base rounded opacity-80 hover:opacity-100"
+          type="submit"
+        >
+          Apply
+        </button>
+      </div>
+    </form>
   )
 }
 

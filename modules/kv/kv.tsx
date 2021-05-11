@@ -93,11 +93,6 @@ function KVStore() {
             )}
           </Menu>
           <CurrentPanel />
-          <div className="ml-auto p-2">
-            <button className="bg-skin-button-accent p-1.5 text-sm w-24 font-normal tracking-wider text-skin-base rounded opacity-80 hover:opacity-100">
-              Apply
-            </button>
-          </div>
         </div>
         <div className="flex-1 w-full h-full">
           <CurrentScreen />

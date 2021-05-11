@@ -7,7 +7,7 @@ function Overview() {
   const router = useRouter()
   const { profileId } = router.query
   const { data } = useDashboardQuery(profileId as string)
-  console.log({ data: data.data })
+  console.log({ data })
   return (
     <Layout sidenav>
       <div className="flex gap-2 w-full h-full text-skin-base">
