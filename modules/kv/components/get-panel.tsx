@@ -4,9 +4,15 @@ import * as React from "react"
 import { useFormik } from "formik"
 import { TGetRequest } from "~/types/kv"
 import { useKVContext } from "../context"
+import { useGetMutation } from "../query-utils"
+import { useRouter } from "next/router"
 
 function GetPanel() {
-  const { setValuesForSelectedOptions } = useKVContext()
+  const { setResponse } = useKVContext()
+  const router = useRouter()
+
+  const { mutate } = useGetMutation(router.query["profileId"] as string)
+
   const formik = useFormik<TGetRequest>({
     initialValues: {
       key: "",
@@ -18,7 +24,13 @@ function GetPanel() {
       keys_only: false,
       prefix: false,
     },
-    onSubmit: (data) => setValuesForSelectedOptions(data),
+    onSubmit: (data) => {
+      mutate(data, {
+        onSuccess: (res) => {
+          setResponse(res.data)
+        },
+      })
+    },
   })
 
   return (
@@ -30,6 +42,7 @@ function GetPanel() {
         name="key"
         value={formik.values.key}
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
       />
       <Popover className="relative">
         {({ open }) => (
@@ -70,6 +83,7 @@ function GetPanel() {
                           name="limit"
                           value={formik.values.limit}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                         <input
                           key="range"
@@ -77,6 +91,7 @@ function GetPanel() {
                           name="range"
                           value={formik.values.range}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                         <input
                           key="revision"
@@ -85,6 +100,7 @@ function GetPanel() {
                           name="revision"
                           value={formik.values.revision}
                           onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                         <div className="flex gap-2">
                           <div className="flex flex-col">

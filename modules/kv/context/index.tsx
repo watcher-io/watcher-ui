@@ -1,36 +1,36 @@
 import * as React from "react"
 import { ValueOf } from "~/types/common"
 import {
-  TCompactRequest,
-  TDeleteRequest,
-  TGetRequest,
+  TCompactResponseData,
+  TDeleteResponseData,
+  TGetResponseData,
   TOptions,
-  TPutRequest,
+  TPutResponseData,
 } from "~/types/kv"
 import createNamedContext from "~/utils/create-named-context"
 
-type TSelectedOptionValues =
-  | TGetRequest
-  | TPutRequest
-  | TDeleteRequest
-  | TCompactRequest
+type TSelectedOptionResponse =
+  | TGetResponseData
+  | TPutResponseData
+  | TDeleteResponseData
+  | TCompactResponseData
 
 type TKVContext = {
   state: TState
-  selectedOptionValues?: TSelectedOptionValues
   selectOption: (option: TOptions) => void
-  setValuesForSelectedOptions: (values: TSelectedOptionValues) => void
+  setResponse: (response: TSelectedOptionResponse) => void
 }
 
 const KVContext = createNamedContext<TKVContext | null>("KVContext", null)
 
 type TState = {
   selectedOption: TOptions
+  selectedOptionResponse?: TSelectedOptionResponse
 }
 
 const ACTIONS = {
   SET_SELECTED_OPTION: "set-selected-option",
-  SET_VALUES_FOR_SELECTED_OPTION: "set-selected-options-value",
+  SET_SELECTED_OPTION_RESPONSE: "set-selected-option-response",
 } as const
 
 type TAction = { type: ValueOf<typeof ACTIONS>; payload?: any }
@@ -38,8 +38,16 @@ type TAction = { type: ValueOf<typeof ACTIONS>; payload?: any }
 function reducer(state: TState, action: TAction): TState {
   switch (action.type) {
     case ACTIONS["SET_SELECTED_OPTION"]: {
-      return { ...state, selectedOption: action.payload }
+      return {
+        ...state,
+        selectedOption: action.payload,
+        selectedOptionResponse: undefined,
+      }
     }
+    case ACTIONS["SET_SELECTED_OPTION_RESPONSE"]: {
+      return { ...state, selectedOptionResponse: action.payload }
+    }
+
     default:
       throw new Error(`Wrong action type in KVContext reducer`)
   }
@@ -56,20 +64,18 @@ function KVContextProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: ACTIONS["SET_SELECTED_OPTION"], payload: option })
   }, [])
 
-  const setValuesForSelectedOptions = React.useCallback(
-    (values: TSelectedOptionValues) => {
-      dispatch({
-        type: ACTIONS["SET_VALUES_FOR_SELECTED_OPTION"],
-        payload: values,
-      })
-    },
-    []
-  )
+  const setResponse = React.useCallback((response: TSelectedOptionResponse) => {
+    dispatch({
+      type: ACTIONS["SET_SELECTED_OPTION_RESPONSE"],
+      payload: response,
+    })
+  }, [])
 
-  const value = React.useMemo(
-    () => ({ state, selectOption, setValuesForSelectedOptions }),
-    [state, selectOption, setValuesForSelectedOptions]
-  )
+  const value = React.useMemo(() => ({ state, selectOption, setResponse }), [
+    state,
+    selectOption,
+    setResponse,
+  ])
 
   return <KVContext.Provider value={value}>{children}</KVContext.Provider>
 }

@@ -18,10 +18,9 @@ import { TOptions } from "~/types/kv"
 const options: TOptions[] = ["Get", "Put", "Delete", "Compact"]
 
 function KVStore() {
-  const {
-    state: { selectedOption },
-    selectOption,
-  } = useKVContext()
+  const { state, selectOption } = useKVContext()
+
+  const { selectedOption } = state
 
   let CurrentScreen, CurrentPanel
   if (selectedOption === "Get") {
