@@ -56,7 +56,8 @@
   },
   "lint-staged": {
     "**/*.{html,ts,tsx,json,js,jsx}": [
-      "prettier --write"
+      "yarn prettify",
+      "yarn lint:fix"
     ]
   },
   "msw": {
