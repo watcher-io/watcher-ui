@@ -64,6 +64,21 @@ export type TGetResponseData = {
   }>
 }
 
-export type TDeleteResponseData = any
+export type TDeleteResponseData = {
+  header: {
+    cluster_id: number
+    member_id: number
+    revision: number
+    raft_term: number
+  }
+  count: number
+}
 
-export type TCompactResponseData = any
+export type TCompactResponseData = {
+  header: {
+    cluster_id: number
+    member_id: number
+    revision: number
+    raft_term: number
+  }
+}
