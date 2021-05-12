@@ -1,7 +1,8 @@
-import type { ReactElement, MouseEvent } from "react"
-import type { TClusterProfile } from "~/types/cluster-profile"
-import { useRouter } from "next/router"
 import { EyeIcon } from "@heroicons/react/outline"
+import { useRouter } from "next/router"
+import type { ReactElement, MouseEvent } from "react"
+
+import type { TClusterProfile } from "~/types/cluster-profile"
 
 type CardItemProps = TClusterProfile & {
   onViewClick: (event: MouseEvent<SVGSVGElement>) => void

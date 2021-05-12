@@ -1,5 +1,5 @@
-import * as React from "react"
 import { useRouter } from "next/router"
+import * as React from "react"
 
 function SideNav({ children }: { children: React.ReactNode }) {
   const router = useRouter()

@@ -1,9 +1,10 @@
-import * as React from "react"
-import { createNamedContext } from "~/utils"
-import { User } from "~/types/auth"
-import { useLocalStorage } from "~/hooks"
-import { useRouter } from "next/router"
 import axios, { AxiosRequestConfig } from "axios"
+import { useRouter } from "next/router"
+import * as React from "react"
+
+import { useLocalStorage } from "~/hooks"
+import { User } from "~/types/auth"
+import { createNamedContext } from "~/utils"
 
 interface AuthContextProps {
   user: User | null

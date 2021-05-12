@@ -1,13 +1,14 @@
 import { Dialog, Transition, Switch } from "@headlessui/react"
-import * as React from "react"
 import { useFormik, Form } from "formik"
+import * as React from "react"
 import { useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from "react-query"
+
 //@ts-expect-error
 import SearchIcon from "~/assets/icons/search.svg"
 import { useAuthClient } from "~/context/auth-context"
-import { clusterProfile } from "~/utils/api-routes"
 import type { Response } from "~/types/common"
+import { clusterProfile } from "~/utils/api-routes"
 
 interface CreateProfileDialogProps {
   open: boolean

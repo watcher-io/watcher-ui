@@ -1,4 +1,5 @@
 import { rest } from "msw"
+
 import { auth } from "~/utils/api-routes"
 
 export const handlers = [

@@ -1,7 +1,8 @@
-import { useQuery } from "react-query"
-import { auth } from "~/utils/api-routes"
 import axios from "axios"
+import { useQuery } from "react-query"
+
 import { Response } from "~/types/common"
+import { auth } from "~/utils/api-routes"
 
 function useUserExistsQuery() {
   return useQuery("user-existence", async () => {

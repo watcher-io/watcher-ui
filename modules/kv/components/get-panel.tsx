@@ -1,11 +1,13 @@
 import { Popover, Switch, Transition } from "@headlessui/react"
 import { ChevronDownIcon } from "@heroicons/react/outline"
-import * as React from "react"
 import { useFormik } from "formik"
-import { TGetRequest } from "~/types/kv"
+import { useRouter } from "next/router"
+import * as React from "react"
+
 import { useKVContext } from "../context"
 import { useGetMutation } from "../query-utils"
-import { useRouter } from "next/router"
+
+import { TGetRequest } from "~/types/kv"
 
 function GetPanel() {
   const { setResponse } = useKVContext()

@@ -1,8 +1,10 @@
-import { useRouter } from "next/router"
-import { useKVContext } from "../context"
 import { useFormik } from "formik"
-import { TPutRequest } from "~/types/kv"
+import { useRouter } from "next/router"
+
+import { useKVContext } from "../context"
 import { usePutMutation } from "../query-utils"
+
+import { TPutRequest } from "~/types/kv"
 
 function PutPanel() {
   const router = useRouter()

@@ -1,5 +1,9 @@
 {
-  "extends": ["plugin:@next/next/recommended"],
+  "extends": [
+    "plugin:@next/next/recommended",
+    "plugin:prettier/recommended",
+    "prettier/prettier"
+  ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["import"],
   "rules": {

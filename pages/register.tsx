@@ -1,11 +1,12 @@
-import { useForm } from "react-hook-form"
-import type { CreateUserRequest, CreateUserRequestError } from "~/types/auth"
 import axios from "axios"
-import { auth } from "~/utils/api-routes"
-import { useMutation } from "react-query"
 import { useRouter } from "next/router"
-import { useUserExistsQuery } from "~/hooks/useUserExistsQuery"
 import { useEffect } from "react"
+import { useForm } from "react-hook-form"
+import { useMutation } from "react-query"
+
+import { useUserExistsQuery } from "~/hooks/useUserExistsQuery"
+import type { CreateUserRequest, CreateUserRequestError } from "~/types/auth"
+import { auth } from "~/utils/api-routes"
 
 type RequestData = {
   firstName: string

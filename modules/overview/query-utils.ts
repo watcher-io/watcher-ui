@@ -1,7 +1,8 @@
 import { useQuery } from "react-query"
-import { dashboard } from "~/utils/api-routes"
+
 import { useAuthClient } from "~/context/auth-context"
 import { Response } from "~/types/common"
+import { dashboard } from "~/utils/api-routes"
 
 function useDashboardQuery(id: string) {
   const client = useAuthClient()

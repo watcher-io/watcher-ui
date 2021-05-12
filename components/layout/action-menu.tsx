@@ -1,6 +1,7 @@
 import { Menu, Transition } from "@headlessui/react"
-import { Fragment } from "react"
 import { LogoutIcon } from "@heroicons/react/outline"
+import { Fragment } from "react"
+
 import { useAuthContext } from "~/context/auth-context"
 
 export default function ActionMenu() {

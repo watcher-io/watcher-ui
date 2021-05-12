@@ -1,7 +1,9 @@
-import Layout from "~/components/layout"
+import { useRouter } from "next/router"
+
 import Graph from "./components/graph"
 import { useDashboardQuery } from "./query-utils"
-import { useRouter } from "next/router"
+
+import Layout from "~/components/layout"
 
 function Overview() {
   const router = useRouter()

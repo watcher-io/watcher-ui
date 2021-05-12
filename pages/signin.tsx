@@ -1,13 +1,14 @@
-import { useForm } from "react-hook-form"
 import axios from "axios"
-import { auth } from "~/utils/api-routes"
-import { useMutation } from "react-query"
-import { LoginRequest, LoginResponse } from "~/types/auth"
-import { useAuthContext } from "~/context/auth-context"
 import { useRouter } from "next/router"
-import { useIsomorphicLayoutEffect } from "~/hooks"
 import { useEffect } from "react"
+import { useForm } from "react-hook-form"
+import { useMutation } from "react-query"
+
+import { useAuthContext } from "~/context/auth-context"
+import { useIsomorphicLayoutEffect } from "~/hooks"
 import { useUserExistsQuery } from "~/hooks/useUserExistsQuery"
+import { LoginRequest, LoginResponse } from "~/types/auth"
+import { auth } from "~/utils/api-routes"
 
 type RequestData = Pick<LoginRequest, "password">
 

@@ -1,12 +1,14 @@
 import * as React from "react"
+import { useQuery } from "react-query"
+
 import CreateProfileDialog from "./components/create-profile-dialog"
 import Profile from "./components/profile"
+
 import Layout from "~/components/layout"
 import { useAuthClient } from "~/context/auth-context"
-import { useQuery } from "react-query"
+import type { FetchProfileResponse } from "~/types/cluster-profile"
 import { clusterProfile } from "~/utils/api-routes"
 import { isBrowser } from "~/utils/misc"
-import type { FetchProfileResponse } from "~/types/cluster-profile"
 
 function ClusterProfiles() {
   const client = useAuthClient()

@@ -3,6 +3,7 @@ import * as React from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import { Hydrate } from "react-query/hydration"
+
 import { AuthContextProvider, useAuthCheck } from "~/context/auth-context"
 import "~/styles/globals.css"
 
