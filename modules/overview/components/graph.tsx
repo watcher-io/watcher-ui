@@ -1,5 +1,6 @@
 import { Line, OrbitControls, Sphere } from "@react-three/drei"
 import { Canvas, Color } from "@react-three/fiber"
+import { useLayoutEffect, useRef } from "react"
 import type { Color as ThreeColor } from "three"
 
 import { useOverviewContext } from "../context"
@@ -9,9 +10,24 @@ interface NodeProps {
   position?: Coords
   color?: Color
 }
-function Node({ position = [0, 0, 0], color = "hotpink" }: NodeProps) {
+function Node({ position = [0, 0, 0], color = 0x0000ff }: NodeProps) {
+  const node = useRef<any>()
+
+  const handlePointerEnter = () => {
+    node.current.material.color = { r: 0, g: 1, b: 0 }
+  }
+
+  const handlePointerLeave = () => {
+    node.current.material.color = { r: 0, g: 0, b: 1 }
+  }
+
   return (
-    <Sphere position={position}>
+    <Sphere
+      position={position}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
+      ref={node}
+    >
       <meshBasicMaterial color={color} />
     </Sphere>
   )
@@ -36,6 +52,8 @@ function ClusterNodes({
   numberOfNodes,
   position = [0, 0, 0],
 }: ClusterNodesProps) {
+  const graph = useRef<any>()
+
   const theta = (2 * Math.PI) / numberOfNodes
   const radius = 10
 
@@ -52,13 +70,17 @@ function ClusterNodes({
     lines.push({ start: coords[0], end: coords[i] })
   }
 
+  useLayoutEffect(() => {
+    graph.current.rotation.z += 90
+  }, [])
+
   return (
-    <group position={position}>
-      {coords.map((coord) => (
-        <Node position={coord} />
+    <group position={position} ref={graph}>
+      {coords.map((coord, i) => (
+        <Node position={coord} key={i} />
       ))}
-      {lines.map((line) => (
-        <Edge start={line.start} end={line.end} />
+      {lines.map((line, i) => (
+        <Edge start={line.start} end={line.end} key={i} />
       ))}
     </group>
   )

@@ -19,31 +19,98 @@ function Overview() {
 
   return (
     <Layout sidenav>
-      <div className="flex gap-2 w-full h-full text-skin-base">
-        <div className="flex-3">
-          <div className="flex flex-col gap-2 w-full h-full">
-            <div className="flex-1 flex w-full h-full gap-8">
-              <div className="flex-1 w-full h-full py-4 px-6">
-                <div className="bg-skin-main w-full h-full rounded-lg">
-                  has leader?
-                </div>
-              </div>
-              <div className="flex-1 w-full h-full py-4 px-6">
-                <div className="bg-skin-main w-full h-full rounded-lg">
-                  # nodes
-                </div>
-              </div>
+      <div className="flex flex-col gap-2 w-full h-full text-skin-base">
+        <div className="flex w-full h-32 gap-4 px-6">
+          <div className="h-full w-52">
+            <div className="bg-skin-main w-full h-full rounded-lg flex flex-col p-2">
+              <div className="mx-auto">cluster has leader</div>
+              <div className="flex-1 flex justify-center items-center">YES</div>
             </div>
-            <div className="flex-3 px-6 py-2">
-              <div className="relative bg-skin-main w-full h-full rounded-lg">
-                <Graph />
+          </div>
+          <div className="h-full w-52">
+            <div className="bg-skin-main w-full h-full rounded-lg flex flex-col p-2">
+              <div className="mx-auto">no. of cluster members</div>
+              <div className="flex-1 flex justify-center items-center">5</div>
+            </div>
+          </div>
+          <div className="h-full w-52">
+            <div className="bg-skin-main w-full h-full rounded-lg flex flex-col p-2">
+              <div className="mx-auto">cluster snapshot</div>
+              <div className="flex-1 flex justify-center items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-20 w-20"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex-2 flex flex-col w-full h-full gap-2 pt-4 pb-2">
-          <div className="flex-2 bg-skin-main rounded-lg">profile details</div>
-          <div className="flex-3 bg-skin-main rounded-lg">node details</div>
+        <div className="flex-1 flex gap-4 px-6 py-2">
+          <div className="flex-3 ">
+            <div className="relative bg-skin-main w-full h-full rounded-lg">
+              <Graph />
+            </div>
+          </div>
+
+          <div className="flex-2 flex flex-col w-full h-full gap-2">
+            <div className="flex-1 bg-skin-main rounded-lg">
+              profile details
+            </div>
+            <div className="w-full h-10 bg-skin-main rounded-lg flex gap-2 items-center px-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </Layout>
