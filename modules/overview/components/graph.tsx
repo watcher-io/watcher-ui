@@ -1,5 +1,5 @@
-import { Line, OrbitControls, Sphere } from "@react-three/drei"
-import { Canvas, Color } from "@react-three/fiber"
+import { Line, Sphere } from "@react-three/drei"
+import { Canvas, Color, ThreeEvent } from "@react-three/fiber"
 import { useLayoutEffect, useRef } from "react"
 import type { Color as ThreeColor } from "three"
 
@@ -9,8 +9,9 @@ type Coords = [x: number, y: number, z: number]
 interface NodeProps {
   position?: Coords
   color?: Color
+  onClick: (event: ThreeEvent<MouseEvent>) => void
 }
-function Node({ position = [0, 0, 0], color = 0x0000ff }: NodeProps) {
+function Node({ position = [0, 0, 0], color = 0x0000ff, onClick }: NodeProps) {
   const node = useRef<any>()
 
   const handlePointerEnter = () => {
@@ -26,6 +27,7 @@ function Node({ position = [0, 0, 0], color = 0x0000ff }: NodeProps) {
       position={position}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
+      onClick={onClick}
       ref={node}
     >
       <meshBasicMaterial color={color} />
@@ -47,10 +49,12 @@ function Edge({ start, end, color = "red" }: EdgeProps) {
 interface ClusterNodesProps {
   numberOfNodes: number
   position?: Coords
+  handleNodeClick: (nodeId: number) => void
 }
 function ClusterNodes({
   numberOfNodes,
   position = [0, 0, 0],
+  handleNodeClick,
 }: ClusterNodesProps) {
   const graph = useRef<any>()
 
@@ -74,10 +78,14 @@ function ClusterNodes({
     graph.current.rotation.z += 90
   }, [])
 
+  const handleClick = (nodeId: number) => () => {
+    handleNodeClick(nodeId)
+  }
+
   return (
     <group position={position} ref={graph}>
       {coords.map((coord, i) => (
-        <Node position={coord} key={i} />
+        <Node position={coord} key={i} onClick={handleClick(i)} />
       ))}
       {lines.map((line, i) => (
         <Edge start={line.start} end={line.end} key={i} />
@@ -95,11 +103,14 @@ function Lights() {
 }
 
 function Graph() {
-  const { state } = useOverviewContext()
+  const { state, setSelectedNode } = useOverviewContext()
   return (
     <Canvas camera={{ position: [0, 0, 20] }}>
       <Lights />
-      <ClusterNodes numberOfNodes={state.dashboardData?.members.length || 0} />
+      <ClusterNodes
+        numberOfNodes={state.dashboardData?.members.length || 0}
+        handleNodeClick={setSelectedNode}
+      />
     </Canvas>
   )
 }
