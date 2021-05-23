@@ -1,6 +1,8 @@
 import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 import Graph from "./components/graph"
+import { OverviewContextProvider, useOverviewContext } from "./context"
 import { useDashboardQuery } from "./query-utils"
 
 import Layout from "~/components/layout"
@@ -9,7 +11,12 @@ function Overview() {
   const router = useRouter()
   const { profileId } = router.query
   const { data } = useDashboardQuery(profileId as string)
-  console.log({ data })
+  const { setDashboardData } = useOverviewContext()
+
+  useEffect(() => {
+    setDashboardData(data)
+  }, [data])
+
   return (
     <Layout sidenav>
       <div className="flex gap-2 w-full h-full text-skin-base">
@@ -28,7 +35,7 @@ function Overview() {
               </div>
             </div>
             <div className="flex-3 px-6 py-2">
-              <div className="bg-skin-main w-full h-full rounded-lg">
+              <div className="relative bg-skin-main w-full h-full rounded-lg">
                 <Graph />
               </div>
             </div>
@@ -43,4 +50,12 @@ function Overview() {
   )
 }
 
-export default Overview
+function OverviewWithContext() {
+  return (
+    <OverviewContextProvider>
+      <Overview />
+    </OverviewContextProvider>
+  )
+}
+
+export default OverviewWithContext
