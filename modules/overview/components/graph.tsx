@@ -1,25 +1,27 @@
 import { Line, Sphere } from "@react-three/drei"
 import { Canvas, Color, ThreeEvent } from "@react-three/fiber"
 import { useLayoutEffect, useRef } from "react"
-import type { Color as ThreeColor } from "three"
+import * as THREE from "three"
 
 import { useOverviewContext } from "../context"
+
+import { TClusterMember } from "~/types/overview"
 
 type Coords = [x: number, y: number, z: number]
 interface NodeProps {
   position?: Coords
-  color?: Color
+  color?: string | number | THREE.Color
   onClick: (event: ThreeEvent<MouseEvent>) => void
 }
 function Node({ position = [0, 0, 0], color = 0x0000ff, onClick }: NodeProps) {
   const node = useRef<any>()
 
   const handlePointerEnter = () => {
-    node.current.material.color = { r: 0, g: 1, b: 0 }
+    node.current.material.color = new THREE.Color(0x2e2e2e)
   }
 
   const handlePointerLeave = () => {
-    node.current.material.color = { r: 0, g: 0, b: 1 }
+    node.current.material.color = new THREE.Color(color)
   }
 
   return (
@@ -38,7 +40,7 @@ function Node({ position = [0, 0, 0], color = 0x0000ff, onClick }: NodeProps) {
 interface EdgeProps {
   start: Coords
   end: Coords
-  color?: string | number | ThreeColor
+  color?: string | number | THREE.Color
 }
 function Edge({ start, end, color = "red" }: EdgeProps) {
   return (
@@ -47,17 +49,18 @@ function Edge({ start, end, color = "red" }: EdgeProps) {
 }
 
 interface ClusterNodesProps {
-  numberOfNodes: number
+  nodes: Array<TClusterMember>
   position?: Coords
-  handleNodeClick: (nodeId: number) => void
+  handleNodeClick: (node: TClusterMember) => void
 }
 function ClusterNodes({
-  numberOfNodes,
+  nodes,
   position = [0, 0, 0],
   handleNodeClick,
 }: ClusterNodesProps) {
   const graph = useRef<any>()
 
+  const numberOfNodes = nodes.length
   const theta = (2 * Math.PI) / numberOfNodes
   const radius = 10
 
@@ -78,14 +81,19 @@ function ClusterNodes({
     graph.current.rotation.z += 90
   }, [])
 
-  const handleClick = (nodeId: number) => () => {
-    handleNodeClick(nodeId)
+  const handleClick = (nodeIndex: number) => () => {
+    handleNodeClick(nodes[nodeIndex])
   }
 
   return (
     <group position={position} ref={graph}>
       {coords.map((coord, i) => (
-        <Node position={coord} key={i} onClick={handleClick(i)} />
+        <Node
+          position={coord}
+          key={i}
+          onClick={handleClick(i)}
+          color={i === 0 ? 0x00ff00 : 0x0000ff}
+        />
       ))}
       {lines.map((line, i) => (
         <Edge start={line.start} end={line.end} key={i} />
@@ -102,15 +110,36 @@ function Lights() {
   )
 }
 
+function arrangeNodes(
+  members: Array<TClusterMember> = [],
+  leaderId: number | undefined
+) {
+  const arrangedArray: Array<TClusterMember> = []
+
+  const membersWithoutLeader = members.filter((member) => {
+    if (member.id === leaderId) {
+      arrangedArray.push(member)
+      return false
+    }
+    return true
+  })
+  arrangedArray.push(...membersWithoutLeader)
+
+  return arrangedArray
+}
+
 function Graph() {
   const { state, setSelectedNode } = useOverviewContext()
+
+  const arrangedNodes = arrangeNodes(
+    state.dashboardData?.members,
+    state.dashboardData?.leader
+  )
+
   return (
     <Canvas camera={{ position: [0, 0, 20] }}>
       <Lights />
-      <ClusterNodes
-        numberOfNodes={state.dashboardData?.members.length || 0}
-        handleNodeClick={setSelectedNode}
-      />
+      <ClusterNodes nodes={arrangedNodes} handleNodeClick={setSelectedNode} />
     </Canvas>
   )
 }

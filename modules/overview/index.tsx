@@ -7,11 +7,39 @@ import { useDashboardQuery } from "./query-utils"
 
 import Layout from "~/components/layout"
 
+function ProfileDetails() {
+  const { state } = useOverviewContext()
+
+  const { selectedNode } = state
+
+  return (
+    <>
+      {selectedNode ? (
+        <>
+          <p>ID: {selectedNode.id}</p>
+          <p>Name: {selectedNode.name}</p>
+          <p>Peer URLs: {JSON.stringify(selectedNode.peer_urls)}</p>
+          <p>Client URLs: {JSON.stringify(selectedNode.client_urls)}</p>
+          <p>Is Learner: {JSON.stringify(selectedNode.is_learner)}</p>
+          <p>Version: {selectedNode.version}</p>
+          <p>DB Size: {selectedNode.db_size}</p>
+          <p>Raft Index: {selectedNode.raft_index}</p>
+          <p>Raft Term: {selectedNode.raft_term}</p>
+        </>
+      ) : (
+        <p>Select a node</p>
+      )}
+    </>
+  )
+}
+
 function Overview() {
   const router = useRouter()
   const { profileId } = router.query
   const { data } = useDashboardQuery(profileId as string)
-  const { setDashboardData } = useOverviewContext()
+  const { setDashboardData, state } = useOverviewContext()
+
+  const { dashboardData } = state
 
   useEffect(() => {
     setDashboardData(data)
@@ -24,13 +52,17 @@ function Overview() {
           <div className="h-full w-52">
             <div className="bg-skin-main w-full h-full rounded-lg flex flex-col p-2">
               <div className="mx-auto">cluster has leader</div>
-              <div className="flex-1 flex justify-center items-center">YES</div>
+              <div className="flex-1 flex justify-center items-center">
+                {dashboardData?.leader ? "YES" : "NO"}
+              </div>
             </div>
           </div>
           <div className="h-full w-52">
             <div className="bg-skin-main w-full h-full rounded-lg flex flex-col p-2">
               <div className="mx-auto">no. of cluster members</div>
-              <div className="flex-1 flex justify-center items-center">5</div>
+              <div className="flex-1 flex justify-center items-center">
+                {dashboardData?.members ? dashboardData.members.length : 0}
+              </div>
             </div>
           </div>
           <div className="h-full w-52">
@@ -63,8 +95,8 @@ function Overview() {
           </div>
 
           <div className="flex-2 flex flex-col w-full h-full gap-2">
-            <div className="flex-1 bg-skin-main rounded-lg">
-              profile details
+            <div className="bg-skin-main rounded-lg p-4">
+              <ProfileDetails />
             </div>
             <div className="w-full h-10 bg-skin-main rounded-lg flex gap-2 items-center px-2">
               <svg

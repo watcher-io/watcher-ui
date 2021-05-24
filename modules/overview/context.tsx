@@ -1,13 +1,13 @@
 import { useCallback, useContext, useMemo, useReducer } from "react"
 
 import { ValueOf } from "~/types/common"
-import { TClusterOverview } from "~/types/overview"
+import { TClusterMember, TClusterOverview } from "~/types/overview"
 import { createNamedContext } from "~/utils"
 
 type TOverviewContext = {
   state: TState
   setDashboardData: (data: TClusterOverview) => void
-  setSelectedNode: (nodeId: number) => void
+  setSelectedNode: (node: TClusterMember) => void
 }
 
 const ClusterOverviewContext = createNamedContext<TOverviewContext | undefined>(
@@ -22,7 +22,7 @@ const ACTIONS = {
 
 type TState = {
   dashboardData: TClusterOverview | undefined
-  selectedNode: number | undefined
+  selectedNode: TClusterMember | undefined
 }
 type TAction = {
   type: ValueOf<typeof ACTIONS>
@@ -54,8 +54,8 @@ function OverviewContextProvider({ children }: { children: React.ReactNode }) {
     dispatch({ type: ACTIONS["SET_DASHBOARD_DATA"], payload: data })
   }, [])
 
-  const setSelectedNode = useCallback((nodeId: number) => {
-    dispatch({ type: ACTIONS["SET_SELECTED_NODE"], payload: nodeId })
+  const setSelectedNode = useCallback((node: TClusterMember) => {
+    dispatch({ type: ACTIONS["SET_SELECTED_NODE"], payload: node })
   }, [])
 
   const value = useMemo(() => ({ state, setDashboardData, setSelectedNode }), [
